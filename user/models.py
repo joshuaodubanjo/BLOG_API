@@ -20,7 +20,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
     # birth_date = models.CharField(max_length=50, help_text='The age will be populated after you save your date of birth_date. It can\'t be edited')
-    birth_date = models.DateTimeField(help_text='The age will be populated after you save your date of birth_date. It can\'t be edited')
+    birth_date = models.DateField(help_text='The age will be populated after you save your date of birth_date. It can\'t be edited', null=True)
     mobile_number = models.CharField(max_length=50, null=True, blank=True)
     created_date = models.DateField(auto_now=False, auto_now_add=True)
     updated_date = models.DateField(auto_now=True, auto_now_add=False)

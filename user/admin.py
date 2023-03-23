@@ -21,6 +21,7 @@ class CustomUserAdmin(BaseUserAdmin):
         "email",
         "is_staff",
         "is_active",
+        "is_superuser",
     ]
     list_editable = ['is_staff', 'is_active']
     list_display_links = ['username', 'email']
