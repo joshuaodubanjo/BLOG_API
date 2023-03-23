@@ -17,13 +17,13 @@ class CustomUserAdmin(BaseUserAdmin):
 
 
     list_display = [
-        "first_name",
-        "email",
         "username",
+        "email",
         "is_staff",
         "is_active",
     ]
-    list_display_links = ['first_name', 'email']
+    list_editable = ['is_staff', 'is_active']
+    list_display_links = ['username', 'email']
     # search_fields = ['email']
     fieldsets = (
         ('Custom User', {'fields': ('username', 'password'),}),
@@ -36,14 +36,34 @@ class CustomUserAdmin(BaseUserAdmin):
     add_fieldsets = (
         ('Create Custom User', {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'first_name', 'last_name'),
+            'fields': ('username', 'email', 'password1', 'password2', 'first_name', 'last_name'),
             }),
    )
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'email', 'mobile_number']
-    list_display_links = ["full_name"]
+    list_display = ['id', 'full_name', 'email', 'mobile_number']
+    list_display_links = ["id", "full_name"]
     list_filter = ('birth_date',)
     readonly_fields = ['created_date', 'updated_date']
+    
+    def full_name(self, obj:Profile):
+        return f'{obj.first_name} {obj.last_name}'
+
+    TEXT = 'When a user is created, the profile is is also created!'
+    fieldsets = (
+        ('User', {
+            'fields': ('user',),
+            'description': '%s' % TEXT,
+        }),
+        ('Personal Info', {
+            'fields': ('first_name', 'last_name', 'birth_date')
+        }),
+        ('Contact Info', {
+            'fields': ('email', 'mobile_number')
+        }),
+        ('Important Dates', {
+            'fields': ('created_date', 'updated_date')
+        }),
+    )
