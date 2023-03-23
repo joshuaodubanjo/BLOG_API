@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import CustomUser
+from .models import CustomUser, Profile
 from .forms import CustomUserCreationForm, CustomUserChangeform
 
 # Register your models here.
@@ -23,6 +23,7 @@ class CustomUserAdmin(BaseUserAdmin):
         "is_staff",
         "is_active",
     ]
+    list_display_links = ['first_name', 'email']
     # search_fields = ['email']
     fieldsets = (
         ('Custom User', {'fields': ('username', 'password'),}),
@@ -38,3 +39,11 @@ class CustomUserAdmin(BaseUserAdmin):
             'fields': ('email', 'password1', 'password2', 'first_name', 'last_name'),
             }),
    )
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['full_name', 'email', 'mobile_number']
+    list_display_links = ["full_name"]
+    list_filter = ('birth_date',)
+    readonly_fields = ['created_date', 'updated_date']
