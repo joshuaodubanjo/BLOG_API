@@ -49,8 +49,8 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ('birth_date',)
     readonly_fields = ['created_date', 'updated_date']
     
-    def full_name(self, obj:Profile):
-        return f'{obj.first_name} {obj.last_name}'
+    # def full_name(self, obj:Profile):
+    #     return f'{obj.first_name} {obj.last_name}'
 
     TEXT = 'When a user is created, the profile is is also created!'
     fieldsets = (

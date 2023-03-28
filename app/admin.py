@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Post, Tag, Comment
+from .models import Author, Comment, Category, Post, Tag
 
 # Register your models here.
 
@@ -18,9 +18,15 @@ class TagAdmin(admin.ModelAdmin):
     list_editable = ['publish']
 
 
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ['id', 'full_name', 'user']
+    list_display_links = ['id', 'full_name']
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'author', 'posted_date', 'published']
+    list_display = ['id', 'title', 'author', 'category', 'posted_date', 'published']
     list_display_links = ['id', 'title']
     list_editable = ['published',]
     list_filter = ['posted_date', 'updated_date']
@@ -44,6 +50,6 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'post_comment', 'post_author', 'posted_at', 'disapproved']
+    list_display = ['id', 'post_id', 'post_comment', 'post_author', 'posted_at', 'disapproved']
     list_display_links = ['id', 'post_comment']
     list_editable = ['disapproved']

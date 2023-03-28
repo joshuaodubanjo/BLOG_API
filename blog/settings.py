@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     # local app
     'app',
     'user',
+    # 3rd party app
+    'rest_framework',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,22 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 AUTH_USER_MODEL = 'user.CustomUser'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'user.serializers.UserCreateSerializer'
+    }
+}
