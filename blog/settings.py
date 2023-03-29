@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user',
     # 3rd party app
     'rest_framework',
+    'django_filters',
     'djoser',
 ]
 
@@ -138,14 +139,17 @@ REST_FRAMEWORK = {
     ),
 }
 
-
+from datetime import timedelta
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
 }
 
 
 DJOSER = {
     'SERIALIZERS': {
         'user_create': 'user.serializers.UserCreateSerializer'
+        'create_user: ' 'user.serializers.UserSerializer'
     }
 }

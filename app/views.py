@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import *
 from .serializers import *
+from .pagination import *
 
 # Create your views here.
 
@@ -10,6 +12,7 @@ class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'id'
+    pagination_class = CategoryPagination
 
 
 class TagViewSet(ModelViewSet):
@@ -27,7 +30,9 @@ class AuthorViewSet(ModelViewSet):
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()    
     serializer_class = PostSerializer
-    lookup_field = 'id'
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category_id', 'posted_date', 'author__first_name']
+    pagination_class = PostPagination
 
 
 class CommentViewSet(ModelViewSet):
