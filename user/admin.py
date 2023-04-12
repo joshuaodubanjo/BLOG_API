@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.db.models import F
+from django.db.models.aggregates import Count
 
 from .models import CustomUser, Profile
 from .forms import CustomUserCreationForm, CustomUserChangeform
@@ -44,14 +46,15 @@ class CustomUserAdmin(BaseUserAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['id', 'full_name', 'email', 'mobile_number']
+    list_display = ['id', 'first_name', 'last_name', 'full_name', 'email', 'mobile_number']
     list_display_links = ["id", "full_name"]
     list_filter = ('birth_date',)
     readonly_fields = ['created_date', 'updated_date']
+    search_fields= ['first_name__istartswith', 'last_name__istartswith']
     
     # def full_name(self, obj:Profile):
     #     return f'{obj.first_name} {obj.last_name}'
-
+    
     TEXT = 'When a user is created, the profile is is also created!'
     fieldsets = (
         ('User', {

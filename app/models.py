@@ -10,6 +10,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+        ordering = ['title']
 
     def __str__(self):
         return self.title
@@ -18,6 +19,9 @@ class Category(models.Model):
 class Tag(models.Model):
     title = models.CharField(max_length=250)
     publish = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['title']
 
     def __str__(self):
         return self.title
@@ -29,6 +33,9 @@ class Author(models.Model):
     last_name = models.CharField(max_length=50)
     created_date = models.DateField(auto_now=False, auto_now_add=True)
     updated_date = models.DateField(auto_now=True, auto_now_add=False)
+
+    class Meta:
+        ordering = ['created_date']
 
     def __str__(self):
         return self.first_name
@@ -50,6 +57,9 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, related_name='tag')
 
+    class Meta:
+        ordering = ['posted_date']
+
     def __str__(self):
         return self.title
     
@@ -61,6 +71,9 @@ class Comment(models.Model):
     disapproved = models.BooleanField(default=False)
     author = models.OneToOneField(Author, on_delete=models.CASCADE, related_name='commentator')
 
+    class Meta:
+        ordering = ['comment']
+
     def post_author(self):
         return self.author
     
@@ -71,4 +84,4 @@ class Comment(models.Model):
         return self.post.title
 
     def __str__(self):
-        return f'Comment for {self.post.title}'
+        return f'Comment for {self.post.title} by comentator {self.post_comment}'
