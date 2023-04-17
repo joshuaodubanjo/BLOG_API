@@ -23,3 +23,5 @@ class ProfileSerializer(serializers.Serializer):
     class Meta:
         model = CustomUser
         fields = ['id', 'first_name', 'last_name', 'email', 'birth_date', 'mobile_number', 'created_date', 'updated_date', 'user']
+
+
