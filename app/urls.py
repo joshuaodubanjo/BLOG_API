@@ -9,6 +9,7 @@ from . import views
 # Create your urls here
 
 router = routers.DefaultRouter()
+router.register('profile', views.ProfileViewSet, basename='profiles')
 router.register('categories', views.CategoryViewSet, basename='categories')
 router.register('posts', views.PostViewSet, basename='posts')
 router.register('authors', views.AuthorViewSet, basename='authors')

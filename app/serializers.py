@@ -10,31 +10,37 @@ class UserCreateSerializer(BaseUserCreateSerializer):
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name']
 
 
+class ProfileSerializer(serializers.Serializer):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'email', 'birth_date', 'mobile_number', 'created_date', 'updated_date', 'user']
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['title', 'publish']
 
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = ['title', 'publish']
 
 
-class AuthorSerializer(serializers.ModelSerializer):
+class AuthorSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ['user', 'first_name', 'last_name', 'created_date', 'updated_date', 'author_post']
 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ['title', 'excerpt', 'posted_date', 'updated_date', 'slug', 'content', 'author', 'published', 'category', 'tag']
 
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ['post', 'comment', 'posted_at', 'disapproved', 'author']
